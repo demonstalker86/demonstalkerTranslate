@@ -1,5 +1,6 @@
 import requests
 from tkinter import *
+from tkinter import ttk
 from tkinter.ttk import *
 from functools import partial
 
@@ -10,6 +11,7 @@ KEY = 'ZjJmYTY3ZTQtZjA3OS00MzljLWJhODctYTkzNmIxZGZjNjdiOjBiNmYwM2VjMGY5YzRhZTZiZ
 headers_auth = {'Authorization': 'Basic ' + KEY}
 auth = requests.post(URL_AUTH, headers=headers_auth)
 
+
 def Translate(headers_auth, auth):
     auth.status_code =200         
     token = auth.text
@@ -18,38 +20,36 @@ def Translate(headers_auth, auth):
         headers_translate = {'Authorization': 'Bearer ' + token}
         params = {'text': word, 'srcLang': 1033,  'dstLang': 1049}           
         r = requests.get(URL_TRANSLATE, headers=headers_translate, params=params)
-        res = r.json()
-        label.configure(text=res['Translation']['Translation'])            
+        res = r.json()                    
         try:
-            print(res['Translation']['Translation'])
+            label.configure(text=res['Translation']['Translation'])
         except:
-            print('Не найдено варианта для перевода')    
+            label.configure(text='Не найдено варианта для первеода')   
     elif var.get() == 1:
         headers_translate = {'Authorization': 'Bearer ' + token}
         params = {'text': word, 'srcLang': 1049,  'dstLang': 1033}           
         r = requests.get(URL_TRANSLATE, headers=headers_translate, params=params)
-        res = r.json()
-        label.configure(text=res['Translation']['Translation'])
+        res = r.json()       
         try:
-            print(res['Translation']['Translation'])
+            label.configure(text=res['Translation']['Translation'])
         except:
-            print('Не найдено варианта для перевода')
-
+            label.configure(text='Не найдено варианта для первеода')
 
 window = Tk()
 window.title("demonstalkerTranslate")
-window.geometry("800x600")
+window.geometry("800x400")
 var = IntVar()
-var.set(0)
 btn_translate_er = Radiobutton(window, text='С английского на русский',variable=var, value=0)
 btn_translate_er.grid(column=0, row=0)
 btn_translate_re = Radiobutton(window, text='С русского на английский',variable=var, value=1)
-btn_translate_re.grid(column=2, row=0)
+btn_translate_re.grid(column=1, row=0)
 
 txt = Entry(window,width=20)
-txt.grid(column=4,row=0)
-btn_translate = Button(window, text="Перевести",command=partial(Translate,headers_auth, auth))
-btn_translate.grid(column=5, row=0)
-label = Label(window, text="Здесь будет перевод",font=("Comic Sans MS",24, "bold"))
-label.grid(column=0,row=1)
+txt.grid(column=2,row=0)
+ttk.Style().configure("TButton", font=("Helvetica",12, "bold"), padding=6, relief="flat", background="blue", foreground="red")
+btn_translate = Button(window, text="Перевести", command=partial(Translate,headers_auth, auth))
+btn_translate.grid(column=3, row=0)
+ttk.Style().configure("TLabel", foreground="blue", background="orange")
+label = Label(window, text="Здесь будет перевод", font=("Comic Sans MS",18, "bold"))
+label.grid(column=0,row=3)
 window.mainloop() 
