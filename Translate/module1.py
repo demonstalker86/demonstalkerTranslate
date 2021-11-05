@@ -7,7 +7,7 @@ from googletrans import Translator
 
 def translater():
     text = txt_input.get('1.0', END)
-    a = translator.translate(text, dest='ru')   
+    a = translator.translate(text, dest='ru')    
     txt_translate.delete('1.0', END)
     txt_translate.insert('1.0', a.text)
 
@@ -16,13 +16,13 @@ def translater():
 
 window = Tk()
 window.geometry("600x400")
-window.title("demonstalkerTranslate")
+window.title("demonstalkerTranslate, version: 1.0")
 window.resizable(width=False, height=False)
 window['bg'] = 'black'
 translator = Translator()
 
 ttk.Style().configure("TLabel", foreground="white", background="black")
-label = Label(window,  text="Введите текст на английском", font=("Comic Sans MS",15, "bold"))
+label = Label(window,  text="Введите текст на любом языке", font=("Comic Sans MS",15, "bold"))
 label.place(relx=0.5, y=30, anchor=CENTER)
 txt_input = Text(window, width=45, height=5, font='Arial 12 bold')
 txt_input.place(relx=0.5, y=100, anchor=CENTER)
