@@ -21,7 +21,7 @@ def Translate(headers_auth, auth):
     word = txt.get("1.0", 'end')    
     if var.get() == 0:
         headers_translate = {'Authorization': 'Bearer ' + token}
-        params = {'prefix': word, 'srcLang': 1033,  'dstLang': 1049, 'pageSize': 20, 'StartPos': ''}           
+        params = {'prefix': word, 'srcLang': 1033,  'dstLang': 1049}           
         r = requests.get(URL_TRANSLATE, headers=headers_translate, params=params)
         res = r.json()                    
         try:
@@ -30,7 +30,7 @@ def Translate(headers_auth, auth):
               label.configure(text='Не найдено варианта для перевода')            
     elif var.get() == 1:
         headers_translate = {'Authorization': 'Bearer ' + token}
-        params = {'prefix': word, 'srcLang': 1049,  'dstLang': 1033, 'pageSize': 20, 'StartPos': ''}           
+        params = {'prefix': word, 'srcLang': 1049,  'dstLang': 1033}           
         r = requests.get(URL_TRANSLATE, headers=headers_translate, params=params)
         res = r.json()       
         try:
